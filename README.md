@@ -36,53 +36,91 @@ Evaluate the trained model using test data and use it to predict the customer se
 ### Register Number: 212224220123
 
 ```python
-# Define Neural Network(Model1)
 class PeopleClassifier(nn.Module):
     def __init__(self, input_size):
-        super(PeopleClassifier, self).__init__()
-        self.fc1 = nn.Linear(input_size, 16)
-        self.fc2 = nn.Linear(16, 8)
-        #self.fc3 = nn.Linear(16, 8)
-        self.fc3 = nn.Linear(8, 4)
+        super().__init__()
+        self.model = nn.Sequential(
+            nn.Linear(input_size, 32),
+            nn.ReLU(),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Linear(16, 4)
+        )
+
     def forward(self, x):
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        #x = F.relu(self.fc3(x))
-        x = self.fc3(x)
-        return x
+        return self.model(x)
 
-```
+model = PeopleClassifier(X_train.shape[1])
 
-```python
-# Initialize the Model, Loss Function, and Optimizer
-model = PeopleClassifier(input_size=X_train.shape[1])
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(),lr=0.01)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# -----------------------------
+# Training
+# -----------------------------
+print("Name: yashaswini S")
+print("Register Number: 212224220123")
+print("\nTraining Output\n")
+
+epochs = 10
+for epoch in range(epochs):
+    optimizer.zero_grad()
+    outputs = model(X_train)
+    loss = criterion(outputs, y_train)
+    loss.backward()
+    optimizer.step()
+    print(f"Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}")
+
+# -----------------------------
+# Evaluation
+# -----------------------------
+with torch.no_grad():
+    outputs = model(X_test)
+    _, predicted = torch.max(outputs, 1)
+
+cm = confusion_matrix(y_test, predicted)
+
+print("\n\nConfusion Matrix")
+print("Name: yashaswini S")
+print("Register Number: 212224220123\n")
+print(cm)
+
+# Plot confusion matrix
+plt.figure(figsize=(5,4))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.show()
+
+print("\nClassification Report")
+print("Name: yashaswini S")
+print("Register Number: 212224220123\n")
+print(classification_report(y_test, predicted))
+
+# -----------------------------
+# New Sample Prediction
+# -----------------------------
+print("\nNew Sample Data Prediction")
+print("Name: yashaswini S")
+print("Register Number: 212224220123\n")
+
+# Example sample (change values if needed)
+sample = X_test[0].unsqueeze(0)
+
+prediction = model(sample)
+_, predicted_class = torch.max(prediction, 1)
+
+segments = ["A", "B", "C", "D"]
+
+print("Input Sample:", sample.numpy())
+print("Predicted Segment:", segments[predicted_class.item()])
 
 ```
-
-```python
-#function to train the model
-# Training Loop
-def train_model(model, train_loader, criterion, optimizer, epochs):
-  for epoch in range(epochs):
-    model.train()
-    for X_batch, y_batch in train_loader:
-        optimizer.zero_grad()
-        outputs = model(X_batch)
-        loss = criterion(outputs, y_batch)
-        loss.backward()
-        optimizer.step()
-
-    if (epoch + 1) % 10 == 0:
-        print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
-```
-
 
 ## Dataset Information
 
-<img width="1006" height="218" alt="image" src="https://github.com/user-attachments/assets/e1534f5a-ac87-4103-866e-5362d62b65ba" />
-
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/8d81b690-472d-4ab8-92e7-eded276e1d7e" />
 
 ## OUTPUT
 
@@ -90,18 +128,19 @@ def train_model(model, train_loader, criterion, optimizer, epochs):
 
 ### Confusion Matrix
 
-<img width="566" height="472" alt="image" src="https://github.com/user-attachments/assets/0646f03c-0b1f-4d03-b303-92408cf31880" />
+<img width="607" height="553" alt="image" src="https://github.com/user-attachments/assets/256e4ced-04bc-43c7-bdcd-46f75bc830d1" />
+
 
 
 ### Classification Report
 
-<img width="467" height="327" alt="image" src="https://github.com/user-attachments/assets/76a29ca3-d98e-4256-861d-13255a3fc6ca" />
+<img width="549" height="269" alt="image" src="https://github.com/user-attachments/assets/a860017d-148d-4dcc-8737-0914fa8c44fa" />
 
 
 
 ### New Sample Data Prediction
 
-<img width="819" height="131" alt="image" src="https://github.com/user-attachments/assets/b1c30c32-5bdf-4694-8197-1cfd5b030748" />
+<img width="719" height="249" alt="image" src="https://github.com/user-attachments/assets/02a1d881-b8be-41bb-b750-71e922d9bdac" />
 
 
 ## RESULT
