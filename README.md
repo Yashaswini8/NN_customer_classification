@@ -121,6 +121,7 @@ print("Predicted Segment:", segments[predicted_class.item()])
 ## Dataset Information
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/8d81b690-472d-4ab8-92e7-eded276e1d7e" />
+<img width="1408" height="257" alt="image" src="https://github.com/user-attachments/assets/62158cdf-dc58-4f4c-9890-0fb279bf928d" />
 
 ## OUTPUT
 
@@ -128,19 +129,21 @@ print("Predicted Segment:", segments[predicted_class.item()])
 
 ### Confusion Matrix
 
-<img width="607" height="553" alt="image" src="https://github.com/user-attachments/assets/256e4ced-04bc-43c7-bdcd-46f75bc830d1" />
+<img width="928" height="629" alt="image" src="https://github.com/user-attachments/assets/9be63a83-ea0a-4adc-b7ed-1a6ced2e5e6f" />
+
 
 
 
 ### Classification Report
 
-<img width="549" height="269" alt="image" src="https://github.com/user-attachments/assets/a860017d-148d-4dcc-8737-0914fa8c44fa" />
+<img width="771" height="303" alt="image" src="https://github.com/user-attachments/assets/a60f7e32-b01a-4d88-a839-46a311074128" />
 
 
 
 ### New Sample Data Prediction
 
-<img width="719" height="249" alt="image" src="https://github.com/user-attachments/assets/02a1d881-b8be-41bb-b750-71e922d9bdac" />
+<img width="494" height="143" alt="image" src="https://github.com/user-attachments/assets/0a5faa61-35f3-4e87-9b02-cb2dcd892552" />
+
 
 
 ## RESULT
